@@ -7,9 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.util.List;
@@ -87,13 +89,15 @@ public class ToDoRepositoryTest {
     @Test
     @Transactional
     @Rollback
-    public void testNameUniqueness() {
-        ToDo toDo = new ToDo("name", "desc", ToDoStatus.DONE, 0, Instant.EPOCH);
+    public void testNameNotNull() {
+        ToDo toDo = new ToDo(null, "desc", ToDoStatus.DONE, 0, Instant.EPOCH);
 
         toDoRepository.save(toDo);
-        toDoRepository.save(toDo);
 
-        assertNotNull(toDoRepository.findAll().get(0));
+        assertThrows(
+                DataIntegrityViolationException.class,
+                () -> toDoRepository.findAll()
+        );
     }
 
 }
