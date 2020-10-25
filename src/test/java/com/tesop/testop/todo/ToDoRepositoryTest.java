@@ -44,7 +44,7 @@ public class ToDoRepositoryTest {
         ToDo toDo = new ToDo("name", "desc", ToDoStatus.DONE, 0, Instant.EPOCH);
         toDoRepository.save(toDo);
 
-        Optional<ToDo> optionalToDo = toDoRepository.findByToDoId(toDo.getToDoId());
+        Optional<ToDo> optionalToDo = toDoRepository.findById(toDo.getToDoId());
         assertNotNull(optionalToDo.get());
         ToDo foundToDo = optionalToDo.get();
 
