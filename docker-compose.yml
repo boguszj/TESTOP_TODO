@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: pspswd
+      POSTGRES_USER: tesop
+      POSTGRES_DB: db
+    ports:
+      - "54326:5432"
