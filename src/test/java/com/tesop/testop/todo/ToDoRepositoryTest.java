@@ -2,6 +2,7 @@ package com.tesop.testop.todo;
 
 import com.tesop.testop.application.todo.repositories.ToDoRepository;
 import com.tesop.testop.domain.todo.entitiy.ToDo;
+import com.tesop.testop.domain.todo.entitiy.ToDoId;
 import com.tesop.testop.domain.todo.statuses.ToDoStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,6 +85,13 @@ public class ToDoRepositoryTest {
 
         assertEquals(4, toDos.size());
 
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void testFindNonExistent() {
+        assertEquals(toDoRepository.findById(ToDoId.newId()), Optional.empty());
     }
 
     @Test
