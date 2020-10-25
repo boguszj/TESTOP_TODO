@@ -36,7 +36,7 @@ public class DeleteToDoHandlerTest {
     }
 
     @Test
-    public void shouldPatchSingleField() {
+    public void shouldDeleteToDo() {
         deleteToDoHandler.handle(toDo.getToDoId());
 
         verify(toDoRepository).delete(argThat((ToDo toDo) -> toDo.getToDoId().equals(this.toDo.getToDoId())));

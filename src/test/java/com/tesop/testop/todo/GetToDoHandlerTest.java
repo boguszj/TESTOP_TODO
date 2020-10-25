@@ -29,7 +29,7 @@ public class GetToDoHandlerTest {
     }
 
     @Test
-    public void shouldPatchSingleField() {
+    public void shouldGetToDo() {
         getToDoHandler.handle(toDo.getToDoId());
 
         verify(toDoProvider).findOneById(argThat((ToDoId toDoId) -> toDoId.equals(toDo.getToDoId())));
