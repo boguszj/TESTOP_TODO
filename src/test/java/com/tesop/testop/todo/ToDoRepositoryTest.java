@@ -73,6 +73,22 @@ public class ToDoRepositoryTest {
     @Test
     @Transactional
     @Rollback
+    public void testUpdate() {
+        int initialImportance = 0;
+        int expectedUpdatedImportance = 1;
+        ToDo toDo = new ToDo("name", "desc", ToDoStatus.DONE, initialImportance, Instant.EPOCH);
+
+        toDoRepository.save(toDo);
+        toDo.setImportance(expectedUpdatedImportance);
+        toDoRepository.save(toDo);
+
+        int updatedImportance = toDoRepository.getOne(toDo.getToDoId()).getImportance();
+        assertEquals(expectedUpdatedImportance, updatedImportance);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
     public void testFindAll() {
         List.of(
                 new ToDo("name1", "desc1", ToDoStatus.DONE, 0, Instant.EPOCH),
